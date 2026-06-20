@@ -1,10 +1,8 @@
-payload:
-  - DOMAIN-KEYWORD,-playground- 
-  - DOMAIN-KEYWORD,playground.ru
-  - DOMAIN-SUFFIX,playground.ru
-  - DOMAIN-SUFFIX,yandex.ru
-  - DOMAIN-SUFFIX,counter.yadro.ru
-  - DOMAIN-SUFFIX,privacy-cs.mail.ru
-  - DOMAIN-SUFFIX,cabinet.adzone.ru
-  - DOMAIN-SUFFIX,dl3.gamedl.ru
+DOMAIN-KEYWORD,playground
+DOMAIN-SUFFIX,playground.ru
+DOMAIN-SUFFIX,yandex.ru
+DOMAIN-SUFFIX,counter.yadro.ru
+DOMAIN-SUFFIX,privacy-cs.mail.ru
+DOMAIN-SUFFIX,cabinet.adzone.ru
+DOMAIN-SUFFIX,dl3.gamedl.ru
 
