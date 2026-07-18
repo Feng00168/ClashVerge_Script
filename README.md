@@ -17,6 +17,9 @@ const domesticNameservers = [
 
 // 程序入口
 function main(config) {
+
   // 默认不进行任何配置覆盖，直接返回原配置
+  
   return config;
+
 }
