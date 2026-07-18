@@ -1,0 +1,516 @@
+# 支持多机场的clashverge自用yaml文件，无需全局拓展脚本
+# 支持多地区、串流平台、社交平台、AI等多场景分流
+port: 7890
+socks-port: 7891
+redir-port: 7892
+mixed-port: 7893
+allow-lan: true
+mode: rule
+log-level: info
+external-controller: 127.0.0.1:9090
+
+# DNS配置
+dns:
+  enable: true
+  listen: 0.0.0.0:1053
+  ipv6: false
+  prefer-h3: false
+  respect-rules: true
+  use-system-hosts: false
+  cache-algorithm: arc
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  fake-ip-filter:
+    - "+.lan"
+    - "+.local"
+    - "+.msftconnecttest.com"
+    - "+.msftncsi.com"
+    - "localhost.ptlogin2.qq.com"
+    - "localhost.sec.qq.com"
+    - "+.in-addr.arpa"
+    - "+.ip6.arpa"
+    - "time.*.com"
+    - "time.*.gov"
+    - "pool.ntp.org"
+    - "localhost.work.weixin.qq.com"
+  default-nameserver: ["223.5.5.5", "1.2.4.8"]
+  nameserver:
+    - "https://208.67.222.222/dns-query"
+    - "https://77.88.8.8/dns-query"
+    - "https://1.1.1.1/dns-query"
+    - "https://8.8.4.4/dns-query"
+  proxy-server-nameserver:
+    - "https://223.5.5.5/dns-query"
+    - "https://doh.pub/dns-query"
+  direct-nameserver:
+    - "https://223.5.5.5/dns-query"
+    - "https://doh.pub/dns-query"
+  nameserver-policy:
+    "geosite:private,cn":
+      - "https://223.5.5.5/dns-query"
+      - "https://doh.pub/dns-query"
+
+# 代理集配置 (在此处添加机场订阅)
+proxy-providers:
+  Airport1: # 机场1名字（可自定义）
+    type: http
+    url: "你的机场订阅链接1"
+    interval: 3600
+    path: ./sub/Airport1.yaml
+    health-check:
+      enable: true
+      interval: 300
+      url: https://www.gstatic.com/generate_204
+
+  Airport2: # 机场2名字（可自定义，若无此机场可整段删掉）
+    type: http
+    url: "你的机场订阅链接2"
+    interval: 3600
+    path: ./sub/Airport2.yaml
+    health-check:
+      enable: true
+      interval: 300
+      url: https://www.gstatic.com/generate_204
+
+# 代理组配置
+proxy-groups:
+  - name: 节点选择
+    type: select
+    include-all: true
+    filter: "^(?!.*(官网|套餐|流量|异常|剩余)).*$"
+    icon: "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/adjust.svg"
+
+  - name: 谷歌服务
+    type: select
+    proxies:
+      - 节点选择
+      - 全局直连
+      - 香港节点
+      - 澳门节点
+      - 台湾节点
+      - 狮城节点
+      - 美国节点
+      - 日本节点
+      - 韩国节点
+      - 俄罗斯节点
+      - 德国节点
+      - 法国节点
+    icon: "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/google.svg"
+
+  - name: YouTube
+    type: select
+    proxies:
+      - 节点选择
+      - 香港节点
+      - 澳门节点
+      - 台湾节点
+      - 狮城节点
+      - 美国节点
+      - 日本节点
+      - 韩国节点
+      - 俄罗斯节点
+      - 德国节点
+      - 法国节点
+    icon: "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/youtube.svg"
+
+  - name: Netflix
+    type: select
+    proxies:
+      - 节点选择
+      - 香港节点
+      - 澳门节点
+      - 台湾节点
+      - 狮城节点
+      - 美国节点
+      - 日本节点
+      - 韩国节点
+      - 德国节点
+      - 法国节点
+    icon: "https://fastly.jsdelivr.net/gh/xiaolin-007/clash@main/icon/netflix.svg"
+
+  - name: 电报消息
+    type: select
+    proxies:
+      - 节点选择
+      - 香港节点
+      - 澳门节点
+      - 台湾节点
+      - 狮城节点
+      - 美国节点
+      - 日本节点
+      - 韩国节点
+      - 俄罗斯节点
+      - 德国节点
+      - 法国节点
+    icon: "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/telegram.svg"
+
+  - name: AI
+    type: select
+    proxies:
+      - 节点选择
+      - 香港节点
+      - 澳门节点
+      - 台湾节点
+      - 狮城节点
+      - 美国节点
+      - 日本节点
+      - 韩国节点
+      - 德国节点
+      - 法国节点
+    icon: "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/chatgpt.svg"
+
+  - name: TikTok
+    type: select
+    proxies:
+      - 节点选择
+      - 香港节点
+      - 澳门节点
+      - 台湾节点
+      - 狮城节点
+      - 美国节点
+      - 日本节点
+      - 韩国节点
+      - 德国节点
+      - 法国节点
+    icon: "https://fastly.jsdelivr.net/gh/xiaolin-007/clash@main/icon/tiktok.svg"
+
+  - name: 微软服务
+    type: select
+    proxies:
+      - 节点选择
+      - 全局直连
+      - 香港节点
+      - 澳门节点
+      - 台湾节点
+      - 狮城节点
+      - 美国节点
+      - 日本节点
+      - 韩国节点
+      - 俄罗斯节点
+      - 德国节点
+      - 法国节点
+    icon: "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/microsoft.svg"
+
+  - name: 苹果服务
+    type: select
+    proxies:
+      - 节点选择
+      - 全局直连
+      - 香港节点
+      - 澳门节点
+      - 台湾节点
+      - 狮城节点
+      - 美国节点
+      - 日本节点
+      - 韩国节点
+      - 俄罗斯节点
+      - 德国节点
+      - 法国节点
+    icon: "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/apple.svg"
+
+  - name: 动画疯
+    type: select
+    proxies:
+      - 节点选择
+      - 台湾节点
+    icon: "https://fastly.jsdelivr.net/gh/xiaolin-007/clash@main/icon/Bahamut.svg"
+
+  - name: 哔哩哔哩港澳台
+    type: select
+    proxies:
+      - 节点选择
+      - 全局直连
+      - 香港节点
+      - 澳门节点
+      - 台湾节点
+    icon: "https://fastly.jsdelivr.net/gh/xiaolin-007/clash@main/icon/bilibili.svg"
+
+  - name: Spotify
+    type: select
+    proxies:
+      - 节点选择
+      - 全局直连
+      - 香港节点
+      - 澳门节点
+      - 台湾节点
+      - 狮城节点
+      - 美国节点
+      - 日本节点
+      - 韩国节点
+      - 俄罗斯节点
+      - 德国节点
+      - 法国节点
+    icon: "https://fastly.jsdelivr.net/gh/xiaolin-007/clash@main/icon/spotify.svg"
+
+  - name: 广告过滤
+    type: select
+    proxies:
+      - REJECT
+      - DIRECT
+    icon: "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/bug.svg"
+
+  - name: 全局直连
+    type: select
+    proxies:
+      - DIRECT
+      - 节点选择
+    icon: "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/link.svg"
+
+  - name: 全局拦截
+    type: select
+    proxies:
+      - REJECT
+      - DIRECT
+    icon: "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/block.svg"
+
+  - name: 漏网之鱼
+    type: select
+    include-all: true
+    filter: "^(?!.*(官网|套餐|流量|异常|剩余)).*$"
+    icon: "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/fish.svg"
+
+  - name: 香港节点
+    type: select
+    include-all: true
+    filter: "(?i)(香港|hk|hongkong|hong kong)"
+    icon: "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/flags/hk.svg"
+
+  - name: 澳门节点
+    type: select
+    include-all: true
+    filter: "(?i)(澳门|mo|macao|macau)"
+    icon: "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/flags/mo.svg"
+
+  - name: 台湾节点
+    type: select
+    include-all: true
+    filter: "(?i)(台湾|tw|taiwan)"
+    icon: "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/flags/tw.svg"
+
+  - name: 狮城节点
+    type: select
+    include-all: true
+    filter: "(?i)(新加坡|sg|singapore)"
+    icon: "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/flags/sg.svg"
+
+  - name: 美国节点
+    type: select
+    include-all: true
+    filter: "(?i)(美国|us|usa|america|united states)"
+    icon: "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/flags/us.svg"
+
+  - name: 日本节点
+    type: select
+    include-all: true
+    filter: "(?i)(日本|jp|japan)"
+    icon: "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/flags/jp.svg"
+
+  - name: 韩国节点
+    type: select
+    include-all: true
+    filter: "(?i)(韩国|kr|korea)"
+    icon: "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/flags/kr.svg"
+
+  - name: 俄罗斯节点
+    type: select
+    include-all: true
+    filter: "(?i)(俄罗斯|俄国|ru|russia)"
+    icon: "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/flags/ru.svg"
+
+  - name: 德国节点
+    type: select
+    include-all: true
+    filter: "(?i)(德国|de|germany)"
+    icon: "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/flags/de.svg"
+
+  - name: 法国节点
+    type: select
+    include-all: true
+    filter: "(?i)(法国|fr|france)"
+    icon: "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/flags/fr.svg"
+
+# 规则集配置
+rule-providers:
+  reject:
+    type: http
+    format: yaml
+    interval: 86400
+    behavior: domain
+    url: "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/reject.txt"
+    path: ./ruleset/loyalsoldier/reject.yaml
+  icloud:
+    type: http
+    format: yaml
+    interval: 86400
+    behavior: domain
+    url: "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/icloud.txt"
+    path: ./ruleset/loyalsoldier/icloud.yaml
+  apple:
+    type: http
+    format: yaml
+    interval: 86400
+    behavior: domain
+    url: "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/apple.txt"
+    path: ./ruleset/loyalsoldier/apple.yaml
+  google:
+    type: http
+    format: yaml
+    interval: 86400
+    behavior: domain
+    url: "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/google.txt"
+    path: ./ruleset/loyalsoldier/google.yaml
+  proxy:
+    type: http
+    format: yaml
+    interval: 86400
+    behavior: domain
+    url: "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/proxy.txt"
+    path: ./ruleset/loyalsoldier/proxy.yaml
+  direct:
+    type: http
+    format: yaml
+    interval: 86400
+    behavior: domain
+    url: "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/direct.txt"
+    path: ./ruleset/loyalsoldier/direct.yaml
+  private:
+    type: http
+    format: yaml
+    interval: 86400
+    behavior: domain
+    url: "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/private.txt"
+    path: ./ruleset/loyalsoldier/private.yaml
+  gfw:
+    type: http
+    format: yaml
+    interval: 86400
+    behavior: domain
+    url: "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/gfw.txt"
+    path: ./ruleset/loyalsoldier/gfw.yaml
+  tld-not-cn:
+    type: http
+    format: yaml
+    interval: 86400
+    behavior: domain
+    url: "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/tld-not-cn.txt"
+    path: ./ruleset/loyalsoldier/tld-not-cn.yaml
+  telegramcidr:
+    type: http
+    format: yaml
+    interval: 86400
+    behavior: ipcidr
+    url: "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/telegramcidr.txt"
+    path: ./ruleset/loyalsoldier/telegramcidr.yaml
+  cncidr:
+    type: http
+    format: yaml
+    interval: 86400
+    behavior: ipcidr
+    url: "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/cncidr.txt"
+    path: ./ruleset/loyalsoldier/cncidr.yaml
+  lancidr:
+    type: http
+    format: yaml
+    interval: 86400
+    behavior: ipcidr
+    url: "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/lancidr.txt"
+    path: ./ruleset/loyalsoldier/lancidr.yaml
+  applications:
+    type: http
+    format: yaml
+    interval: 86400
+    behavior: classical
+    url: "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/applications.txt"
+    path: ./ruleset/loyalsoldier/applications.yaml
+  bahamut:
+    type: http
+    format: yaml
+    interval: 86400
+    behavior: classical
+    url: "https://fastly.jsdelivr.net/gh/xiaolin-007/clash@main/rule/Bahamut.txt"
+    path: ./ruleset/xiaolin-007/bahamut.yaml
+  YouTube:
+    type: http
+    format: yaml
+    interval: 86400
+    behavior: classical
+    url: "https://fastly.jsdelivr.net/gh/xiaolin-007/clash@main/rule/YouTube.txt"
+    path: ./ruleset/xiaolin-007/YouTube.yaml
+  Netflix:
+    type: http
+    format: yaml
+    interval: 86400
+    behavior: classical
+    url: "https://fastly.jsdelivr.net/gh/xiaolin-007/clash@main/rule/Netflix.txt"
+    path: ./ruleset/xiaolin-007/Netflix.yaml
+  Spotify:
+    type: http
+    format: yaml
+    interval: 86400
+    behavior: classical
+    url: "https://fastly.jsdelivr.net/gh/xiaolin-007/clash@main/rule/Spotify.txt"
+    path: ./ruleset/xiaolin-007/Spotify.yaml
+  BilibiliHMT:
+    type: http
+    format: yaml
+    interval: 86400
+    behavior: classical
+    url: "https://fastly.jsdelivr.net/gh/xiaolin-007/clash@main/rule/BilibiliHMT.txt"
+    path: ./ruleset/xiaolin-007/BilibiliHMT.yaml
+  AI:
+    type: http
+    format: yaml
+    interval: 86400
+    behavior: classical
+    url: "https://fastly.jsdelivr.net/gh/xiaolin-007/clash@main/rule/AI.txt"
+    path: ./ruleset/xiaolin-007/AI.yaml
+  TikTok:
+    type: http
+    format: yaml
+    interval: 86400
+    behavior: classical
+    url: "https://fastly.jsdelivr.net/gh/xiaolin-007/clash@main/rule/TikTok.txt"
+    path: ./ruleset/xiaolin-007/TikTok.yaml
+  Playground:
+    type: http
+    format: yaml
+    interval: 86400
+    behavior: classical
+    url: "https://raw.githubusercontent.com/Feng00168/ClashVerge_Script/refs/heads/main/Provider/Playground.txt"
+    path: ./ruleset/Feng00168/Playground.yaml
+
+# 规则
+rules:
+  - DOMAIN-SUFFIX,googleapis.cn,节点选择
+  - DOMAIN-SUFFIX,gstatic.com,节点选择
+  - DOMAIN-SUFFIX,xn--ngstr-lra8j.com,节点选择
+  - DOMAIN-SUFFIX,github.io,节点选择
+  - DOMAIN,v2rayse.com,节点选择
+  - DOMAIN-SUFFIX,xiesita.us.ci,全局直连
+
+  - RULE-SET,applications,全局直连
+  - RULE-SET,private,全局直连
+  - RULE-SET,reject,广告过滤
+  - RULE-SET,icloud,微软服务
+  - RULE-SET,apple,苹果服务
+  - RULE-SET,YouTube,YouTube
+  - RULE-SET,Netflix,Netflix
+  - RULE-SET,bahamut,动画疯
+  - RULE-SET,Spotify,Spotify
+  - RULE-SET,BilibiliHMT,哔哩哔哩港澳台
+  - RULE-SET,AI,AI
+  - RULE-SET,TikTok,TikTok
+  - RULE-SET,google,谷歌服务
+  - RULE-SET,Playground,俄罗斯节点
+  - RULE-SET,proxy,节点选择
+  - RULE-SET,gfw,节点选择
+  - RULE-SET,tld-not-cn,节点选择
+  - RULE-SET,direct,全局直连
+  - RULE-SET,lancidr,全局直连,no-resolve
+  - RULE-SET,cncidr,全局直连,no-resolve
+  - RULE-SET,telegramcidr,电报消息,no-resolve
+
+  - GEOSITE,CN,全局直连
+  - GEOIP,LAN,全局直连,no-resolve
+  - GEOIP,CN,全局直连,no-resolve
+  - MATCH,漏网之鱼
