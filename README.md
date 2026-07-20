@@ -1,12 +1,13 @@
 # Clash-Verge自用全局拓展脚本、yaml文件、规则集
 
-目前收录：
+**目前收录：**
 <br>
-1、俄网playground mod网站
+1、俄网playground mod网站<br>
+2、自用图标集：Gemini
 <br>
 
 
-更新日志：
+**更新日志：**
 <br>
 2026.7.18更新多机场自用yaml文件，可将多个订阅机场节点整合，无需全局拓展脚本（请将全局拓展改为clashverge默认配置）
 <br>
@@ -14,7 +15,7 @@
 <br>
 
 
-clashverge官网全局拓展默认配置（以防万一可以备份一下）：
+*clashverge官网全局拓展默认配置（以防万一可以备份一下）：*
 <br>
 // 国内DNS服务器<br>
 const domesticNameservers = [<br>
