@@ -507,6 +507,10 @@ rule-providers:
 # 规则
 rules:
   # 自定义规则
+  - DOMAIN-SUFFIX,challenges.cloudflare.com,节点选择
+  - DOMAIN-SUFFIX,cloudflareinsights.com,节点选择
+  - DOMAIN-SUFFIX,turnstile.com,节点选择
+  - DOMAIN-SUFFIX,recaptcha.net,节点选择  #cf人机验证
   - DOMAIN-SUFFIX,googleapis.cn,节点选择
   - DOMAIN-SUFFIX,gstatic.com,节点选择
   - DOMAIN-SUFFIX,xn--ngstr-lra8j.com,节点选择
