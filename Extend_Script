@@ -1,5 +1,6 @@
 // 本脚本修改参考教程https://www.clashverge.dev/guide/script.html#_1
 // 规则集来自xiaolin007和本站，也可参考ACL4SSR大神
+// 好用烦请为该项目点一下star！
 // 国内DNS服务器
 const domesticNameservers = [
   "https://223.5.5.5/dns-query", // 阿里DoH
