@@ -1,5 +1,6 @@
-# 支持多机场的clashverge自用yaml文件，无需全局拓展脚本
+# 支持多机场和自建节点的clashverge自用yaml文件，无需全局拓展脚本
 # 支持多地区、串流平台、社交平台、AI等多场景分流
+# 好用烦请为该项目点一下star！
 port: 7890
 socks-port: 7891
 redir-port: 7892
@@ -55,22 +56,31 @@ dns:
       - "https://223.5.5.5/dns-query"
       - "https://doh.pub/dns-query"
 
-# 代理集配置 (机场订阅链接)
+# 代理集配置 (机场or自建节点订阅链接)
 proxy-providers:
-  Provider1:
+  provider1:
     type: http
-    url: "你的机场订阅链接1"
+    url: "订阅链接1"
     interval: 3600
-    path: ./sub/Provider1.yaml
+    path: ./sub/provider1.yaml
     health-check:
       enable: true
       interval: 300
       url: https://www.gstatic.com/generate_204
-  Provider2:
+  provider2:
     type: http
-    url: "你的机场订阅链接2"
+    url: "订阅链接2"
     interval: 3600
-    path: ./sub/Provider2.yaml
+    path: ./sub/provider2.yaml
+    health-check:
+      enable: true
+      interval: 300
+      url: https://www.gstatic.com/generate_204
+  provider3:
+    type: http
+    url: "订阅链接3"
+    interval: 3600
+    path: ./sub/provider3.yaml
     health-check:
       enable: true
       interval: 300
@@ -89,6 +99,7 @@ proxy-groups:
     proxies:
       - 节点选择
       - 全局直连
+      - 自建节点
       - 香港节点
       - 澳门节点
       - 台湾节点
@@ -105,6 +116,7 @@ proxy-groups:
     type: select
     proxies:
       - 节点选择
+      - 自建节点
       - 香港节点
       - 澳门节点
       - 台湾节点
@@ -121,6 +133,7 @@ proxy-groups:
     type: select
     proxies:
       - 节点选择
+      - 自建节点
       - 香港节点
       - 澳门节点
       - 台湾节点
@@ -136,6 +149,7 @@ proxy-groups:
     type: select
     proxies:
       - 节点选择
+      - 自建节点
       - 香港节点
       - 澳门节点
       - 台湾节点
@@ -152,6 +166,7 @@ proxy-groups:
     type: select
     proxies:
       - 节点选择
+      - 自建节点
       - 澳门节点
       - 台湾节点
       - 狮城节点
@@ -166,6 +181,7 @@ proxy-groups:
     type: select
     proxies:
       - 节点选择
+      - 自建节点
       - 香港节点
       - 澳门节点
       - 台湾节点
@@ -181,6 +197,7 @@ proxy-groups:
     type: select
     proxies:
       - 节点选择
+      - 自建节点
       - 香港节点
       - 澳门节点
       - 台湾节点
@@ -197,6 +214,7 @@ proxy-groups:
     proxies:
       - 节点选择
       - 全局直连
+      - 自建节点
       - 香港节点
       - 澳门节点
       - 台湾节点
@@ -214,6 +232,7 @@ proxy-groups:
     proxies:
       - 节点选择
       - 全局直连
+      - 自建节点
       - 香港节点
       - 澳门节点
       - 台湾节点
@@ -230,6 +249,7 @@ proxy-groups:
     type: select
     proxies:
       - 节点选择
+      - 自建节点
       - 台湾节点
     icon: "https://fastly.jsdelivr.net/gh/xiaolin-007/clash@main/icon/Bahamut.svg"
 
@@ -238,6 +258,7 @@ proxy-groups:
     proxies:
       - 节点选择
       - 全局直连
+      - 自建节点
       - 香港节点
       - 澳门节点
       - 台湾节点
@@ -248,6 +269,7 @@ proxy-groups:
     proxies:
       - 节点选择
       - 全局直连
+      - 自建节点
       - 香港节点
       - 澳门节点
       - 台湾节点
@@ -272,6 +294,7 @@ proxy-groups:
     proxies:
       - DIRECT
       - 节点选择
+      - 自建节点
     icon: "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/link.svg"
 
   - name: 全局拦截
@@ -286,9 +309,16 @@ proxy-groups:
     proxies:
       - DIRECT
       - 节点选择
+      - 自建节点
     include-all: true  
     filter: "^(?!.*(官网|套餐|流量|异常|剩余)).*$"
     icon: "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/fish.svg"
+
+  - name: 自建节点
+    type: url-test
+    include-all: true
+    filter: "(?i)(自建|自用)"  # 自建节点请在节点命名中填写"自建""自用"或修改此处的筛选项
+    icon: "https://fastly.jsdelivr.net/gh/Feng00168/ClashVerge_Script@main/Icon/xiesita.png"
 
   - name: 香港节点
     type: select
