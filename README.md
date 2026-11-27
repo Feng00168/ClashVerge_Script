@@ -20,16 +20,3 @@
 2026.7.20更新AI代理组和规则组为chatgpt和gemini，方便自用，其他AI分流默认漏网之鱼
 <br>
 
-
-*clashverge官网全局拓展默认配置（以防万一可以备份一下）：*
-<br>
-// 国内DNS服务器<br>
-const domesticNameservers = [<br>
-  "https://223.5.5.5/dns-query", // 阿里DoH<br>
-  "https://doh.pub/dns-query" // 腾讯DoH<br>
-];<br>
-// 程序入口<br>
-function main(config) {<br>
-  // 默认不进行任何配置覆盖，直接返回原配置<br>
-  return config;<br>
-}
